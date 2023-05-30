@@ -7,6 +7,7 @@ const event_model = new mongoose.Schema({
    event_organiser : { type: mongoose.Schema.Types.ObjectId, ref: 'userModel' }
   });
   const eventModel = mongoose.model('eventModel',event_model);
+  module.exports = eventModel;
  
  
  

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 export default function Login() {
@@ -10,7 +11,6 @@ export default function Login() {
                 <form className="mt-6">
                     <div className="mb-2">
                         <label
-                            
                             className="block text-sm font-semibold text-gray-800"
                         >
                             Roll Number
@@ -47,12 +47,13 @@ export default function Login() {
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                    
                     Dont have an account?
-                    <a
-                        href="#"
+                    <Link to='/signup'>
+                    <button 
                         className="font-medium  hover:underline"
                     >
                         Sign up
-                    </a>
+                    </button>
+                    </Link>
                 </p>
             </div>
         </div>
