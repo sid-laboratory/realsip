@@ -13,14 +13,15 @@ router.post('/signup', (req, res) =>{
     if(!req.body.firstName || !req.body.lastName || !req.body.rollNumber || !req.body.password){
         return res.status(400).json({msg: 'Please enter all fields'});
     }
-    userModel.findOne({roll_number: req.body.rollNumber})
+    const roll_number = req.body.rollNumber.toUpperCase();
+    userModel.findOne({roll_number})
     .then(user => {
         if(user) return res.status(200).json({msg: 'User already exists'
     });
         const newUser = new userModel({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            roll_number: req.body.rollNumber,
+            roll_number,
             password: req.body.password
         });
         newUser.save()
@@ -30,7 +31,7 @@ router.post('/signup', (req, res) =>{
                     id: user.id,
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    roll_number: user.rollNumber
+                    roll_number
                 }
             })
         })
