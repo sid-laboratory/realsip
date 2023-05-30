@@ -1,7 +1,49 @@
-
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export default function FormExample5()  {
+
+    let [firstName, setFirstName] = useState('');
+    let [lastName, setLastName] = useState('');
+    let [rollNumber, setRollNumber] = useState('');
+    let [password, setPassword] = useState('');
+
+    const validateForm = async () => {
+        if (firstName === '' || lastName === '' || rollNumber === '' || password === '') {
+            toast.error('Please fill all the fields');
+
+        } 
+        else if(firstName.length < 3 || lastName.length < 3){
+            toast.error('First Name and Last Name should be atleast 3 characters long');
+        }
+        else if(rollNumber.length !== 10){
+            toast.error('Roll Number should be atleast 10 characters long');
+        }
+        else if(password.length < 8){
+            toast.error('Password should be atleast 8 characters long');
+        }
+        else {
+            axios.post('http://localhost:3000/api/signup', { firstName : firstName, lastName : lastName, rollNumber : rollNumber, password : password, "test" : "HERo" })
+            .then((response) => {
+                if(response?.data?.msg === 'User already exists'){
+                    toast.warn('User already exists');
+                }
+                else{
+                    toast.success('Successfully Signed Up');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Error Signing Up');
+            });
+        }
+    }
+
+
+
     return (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-emerald-600/40 ring-2 ring-indigo-600 lg:max-w-xl">
@@ -18,6 +60,7 @@ export default function FormExample5()  {
                         </label>
                         <input
                             type="text"
+                            onChange={(e) => setFirstName(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
@@ -30,6 +73,7 @@ export default function FormExample5()  {
                         </label>
                         <input
                             type="text"
+                            onChange={(e) => setLastName(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
@@ -42,6 +86,7 @@ export default function FormExample5()  {
                         </label>
                         <input
                             type="text"
+                            onChange={(e) => setRollNumber(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
@@ -54,11 +99,12 @@ export default function FormExample5()  {
                         </label>
                         <input
                             type="password"
+                            onChange={(e) => setPassword(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
                     <div className="mt-6">
-                        <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
+                        <button type="button" onClick={validateForm} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
                             Login
                         </button>
                     </div>
@@ -67,14 +113,16 @@ export default function FormExample5()  {
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}
                     Already have an account?{" "}
+                    <Link to='/login'>
                     <a
                         href="#"
                         className="font-medium text-indigo-600 hover:underline"
                     >
                         Sign in
-                    </a>
+                    </a></Link>
                 </p>
             </div>
+            <ToastContainer />
         </div>
     );
 }

@@ -2,6 +2,7 @@
 
 import 'react-typed/dist/animatedCursor.css';
 import Typed from 'react-typed';
+import { Link } from 'react-router-dom';
 const Heroo = () => {
 
 return (
@@ -16,6 +17,11 @@ return (
                 <Typed className="text-white text-4xl font-bold"
                  strings={['SPORTS','NCC','EVENTS']} typeSpeed={100} backSpeed={100} loop/>
             </div>
+            <Link to={'/login'}>
+            <button type="button">
+                Click Me! ANNA
+            </button>
+            </Link>
         </div>
 
         </div>
