@@ -1,6 +1,7 @@
 const express = require('express');
 router = express.Router();
 const userModel = require('../models/userModel');
+var jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
     res.send('Hello FROM API')
@@ -26,6 +27,15 @@ router.post('/signup', (req, res) =>{
         });
         newUser.save()
         .then(user => {
+            const token = jwt.sign(
+                { user_id: user._id, email },
+                process.env.TOKEN_KEY,
+                {
+                  expiresIn: "90d",
+                }
+              );
+              // save user token
+              user.token = token;
             return res.status(200).json({
                 user: {
                     id: user.id,
@@ -43,6 +53,22 @@ router.post('/signup', (req, res) =>{
         return res.status(500).json({msg: 'Server Error'});
     }
 })
+
+const verifyToken = (req, res, next) => {
+    const token =
+      req.body.token || req.query.token || req.headers["x-access-token"];
+  
+    if (!token) {
+      return res.status(403).send("A token is required for authentication");
+    }
+    try {
+      const decoded = jwt.verify(token, config.TOKEN_KEY);
+      req.user = decoded;
+    } catch (err) {
+      return res.status(401).send("Invalid Token");
+    }
+    return next();
+  };
 
 router.get('/login', (req, res) => {
     if(!req.body.roll_number || !req.body.password){

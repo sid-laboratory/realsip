@@ -12,6 +12,7 @@ async function main() {
     const app = express()
     const port = 3000
     var cors = require('cors')
+    app.use(express.json());
     app.use(cors()) 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
