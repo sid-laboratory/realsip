@@ -78,7 +78,7 @@ router.get('/login', (req, res) => {
     .then(user => {
         if(!user) return res.status(400).json({msg: 'User does not exist'});
         if(user.password !== req.body.password) return res.status(400).json({msg: 'Invalid Credentials'});
-        res.json({
+        return res.json({
             user: {
                 id: user.id,
                 firstName: user.firstName,
@@ -90,6 +90,30 @@ router.get('/login', (req, res) => {
     })
 })
 
+router.post('/event', (req, res) => {
+    const newEvent = new eventModel({
+        description: req.body.description,
+        location: req.body.location,
+        event_start: req.body.event_start,
+        event_end: req.body.event_end,
+        event_organiser: req.body.event_organiser
+    });
+    newEvent.save()
+    .then(event => res.json(event))
+    .catch(err => res.json(err))
+})
+
+router.get('/event', (req, res) => {
+    eventModel.find()
+    .then(event => res.json(event))
+    .catch(err => res.json(err))
+})
+
+router.get('/event/:id', (req, res) => {
+    eventModel.findById(req.params.id)
+    .then(event => res.json(event))
+    .catch(err => res.json(err))
+})
 
 
 module.exports = router;
