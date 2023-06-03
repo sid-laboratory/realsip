@@ -38,11 +38,11 @@
                 </div>
                
                 <div className={!nav ? " fixed left-0 top-0 w-[30%] h-screen border-r border-r-gray-200 bg-stone-200 ease-in-out duration-500" : "fixed left-[-100%]  h-screen ease-in duration-500"}>
-                    <h1 className="w-full text-3xl font-bold text-stone-600 m-4 pl-20 pt-4">SPORTS ORGANISER</h1>
+                    <p className="w-full text-3xl font-bold text-stone-600 m-4 pl-20 pt-4 pointer-events-none">SPORTS ORGANISER</p>
                     <ul className="uppercase p-4">
                     <Link to='/' onClick={handleNav}> <button className="p-4  block border-b w-[100%] border-black  bold text-xl font-bold"> HOME </button> </Link>
                     <Link to='/Sports'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">SPORTS</button>      </Link>
-                    <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">NCC</button>
+                    <Link to='/NCC'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">NCC</button> </Link>
                     <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">CONTACT</button>
                     </ul>
                 </div>

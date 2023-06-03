@@ -2,11 +2,12 @@
 import 'react-typed/dist/animatedCursor.css';
 import Typed from 'react-typed';
 import { Link } from 'react-router-dom';
+import OurNav from './Navbar';
 const Heroo = () => {
 
 return (
     <> 
-  
+  <OurNav />
         <div className="text-black">
         <div className="flex flex-start justify-end pr-10 pb-4">
             <Link to={'/login'}>
