@@ -42,6 +42,25 @@ export default function FormExample5()  {
         }
     }
 
+    const sampleObj = [
+        {
+            "title": "This is a sample event",
+            "description": "This is a sample event",
+            "location": "This is a sample location",
+            "event_start": "2020-07-20T18:30:00.000Z",
+            "event_end": "2020-07-20T18:30:00.000Z",
+            "event_organiser": "5f15b0b1e1b9a71b1c4b0b1c"
+        },
+        {
+            "title": "This is a sample event",
+            "description": "test",
+            "location": "This is a sample location",
+            "event_start": "2020-07-20T18:30:00.000Z",
+            "event_end": "2020-07-20T18:30:00.000Z",
+            "event_organiser": "5f15b0b1e1b9a71b1c4b0b1c"
+        }
+    ]
+
 
 
     return (
@@ -50,6 +69,9 @@ export default function FormExample5()  {
                 <h1 className="text-3xl font-semibold text-center text-indigo-700 underline uppercase udnerline">
                     Sign UP
                 </h1>
+
+
+
                 <form className="mt-6">
                     <div className="mb-2">
                         <label
@@ -63,6 +85,19 @@ export default function FormExample5()  {
                             onChange={(e) => setFirstName(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
+
+                    </div>
+                    <div className="mb-2">
+                        {sampleObj.map((item, index) => (
+                            <div className="pt-2" key={index}>
+                                <h1>EVENT TITLE : {item.title}</h1>
+                                <h1>EVENT DESCRIPTION : {item.description}</h1>
+                                <h1>EVENT LOCATION : {item.location}</h1>
+                                <h1>EVENT START : {item.event_start}</h1>
+                                <h1>EVENT END : {item.event_end}</h1>
+                                <h1>EVENT ORGANISER : {item.event_organiser}</h1>
+                            </div>
+                        ))}
                     </div>
                     <div className="mb-2">
                         <label
