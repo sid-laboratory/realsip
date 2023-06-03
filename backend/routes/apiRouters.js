@@ -97,6 +97,27 @@ router.post('/event', (req, res) => {
     .catch(err => res.json(err))
 })
 
+
+// SAMPLE RESPONSE OBJECT
+
+const sampleObj = [
+    {
+        "description": "This is a sample event",
+        "location": "This is a sample location",
+        "event_start": "2020-07-20T18:30:00.000Z",
+        "event_end": "2020-07-20T18:30:00.000Z",
+        "event_organiser": "5f15b0b1e1b9a71b1c4b0b1c"
+    },
+    {
+        "description": "This is a sample event",
+        "location": "This is a sample location",
+        "event_start": "2020-07-20T18:30:00.000Z",
+        "event_end": "2020-07-20T18:30:00.000Z",
+        "event_organiser": "5f15b0b1e1b9a71b1c4b0b1c"
+    }
+]
+
+
 router.get('/event', (req, res) => {
     eventModel.find()
     .then(event => res.json(event))
