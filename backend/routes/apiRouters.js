@@ -28,7 +28,7 @@ router.post('/signup', (req, res) =>{
         newUser.save()
         .then(user => {
             const token = jwt.sign(
-                { user_id: user._id, email },
+                { user_id: user._id,email: user.email},
                 process.env.TOKEN_KEY,
                 {
                   expiresIn: "90d",

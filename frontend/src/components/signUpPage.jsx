@@ -105,7 +105,7 @@ export default function FormExample5()  {
                     </div>
                     <div className="mt-6">
                         <button type="button" onClick={validateForm} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-indigo-700 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600">
-                            Login
+                            Sign Up
                         </button>
                     </div>
                 </form>
