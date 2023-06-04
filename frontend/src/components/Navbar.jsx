@@ -43,6 +43,7 @@
                     <Link to='/' onClick={handleNav}> <button className="p-4  block border-b w-[100%] border-black  bold text-xl font-bold"> HOME </button> </Link>
                     <Link to='/Sports'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">SPORTS</button>      </Link>
                     <Link to='/NCC'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">NCC</button> </Link>
+                    <Link to='/AddEvent'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">ADD EVENT</button> </Link>
                     <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">CONTACT</button>
                     </ul>
                 </div>

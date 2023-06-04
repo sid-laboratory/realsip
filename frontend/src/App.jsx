@@ -6,7 +6,7 @@ import Heroo from './components/Heroo';
 import NCC from './components/NCC';
 import Datepick from './components/Date';
 import Sports from './components/Sportss';
-import Noob from './components/Noob';
+import Addevent from './components/Addevent';
 // import Svgimg from './svg.html';
 function App() {
  
@@ -24,7 +24,7 @@ function App() {
   <Route path="/Date" element={<Datepick />} />
   <Route path="/Sports" element={<Sports />} /> 
   <Route path="/NCC" element={<NCC />} />
-  <Route path="/Noob" element={<Noob />} />
+  <Route path="/Addevent" element={<Addevent />} />  
 </Routes>
 </BrowserRouter>
     </div>

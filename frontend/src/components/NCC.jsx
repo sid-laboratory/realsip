@@ -16,7 +16,7 @@ export default function NCC()
     backgroundSize: 'cover',
   }}
 >
-<h1 className="text-6xl font-bold pt-10 flex justify-center items-center pb-10 bg-gradient-to-r from-red-700 via-blue-950 to-cyan-800 text-white">NCC</h1>
+<h1 className="text-[72px] text-white font-bold pt-10 flex justify-center items-center pb-10 transparent">NCC</h1>
 <img src={NCCLOGO} alt="NCC" className="logo-image absolute top-0 left-0 w-[14%] h-auto ml-4 mt-4" />
 
 </ParallaxLayer>
