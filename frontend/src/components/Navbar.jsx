@@ -19,7 +19,7 @@
                     <button className="p-4">SPORTS</button>
                     <button className="p-4">NCC</button>
                     
-                    <button className="p-4">CONTACT</button>
+                    <button className="p-4">EVENTS</button>
                 </ul>
                 <div onClick={handleNav} className=" flex hover:cursor-pointer">
                     {!nav ? <AiOutlineClose size={35}/> :  <AiOutlineMenu size={25} />}
@@ -34,7 +34,7 @@
                     <Link to='/Sports'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">SPORTS</button>      </Link>
                     <Link to='/NCC'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">NCC</button> </Link>
                     <Link to='/AddEvent'> <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">ADD EVENT</button> </Link>
-                    <button className="p-4 block border-b w-[100%] border-black text-xl font-bold">CONTACT</button>
+                    <Link to='/ShowEvent'><button className="p-4 block border-b w-[100%] border-black text-xl font-bold">EVENTS</button> </Link>
                     </ul>
                 </div>
         
