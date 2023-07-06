@@ -8,6 +8,7 @@ main().catch(err => console.log(err));
 async function main() {
     dotenv.config();
     await mongoose.connect(process.env.DB_URI)
+    console.log("Connected to DB");
     //------------------------------------------------------
     const app = express()
     const port = 3000
