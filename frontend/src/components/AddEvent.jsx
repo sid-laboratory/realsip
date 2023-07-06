@@ -3,6 +3,7 @@ import { useState } from "react";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { BASE_URL } from "../urls";
 
 export default function Addevent()  {
 
@@ -10,6 +11,7 @@ export default function Addevent()  {
     let [Description, setDescription] = useState('');
     let [Date, setDate] = useState('');
     let [Organizer, setOrganizer] = useState('');
+    const [Link, SetLink] = useState('');
     const [selected, setSelected] = useState('');
     let [Location, setLocation] = useState('');
   const [selectedHour, setSelectedHour] = useState('');
@@ -27,8 +29,10 @@ export default function Addevent()  {
             toast.error('Enter a valid organizer name');
         }
         else {
-            axios.post('http://localhost:3000/api/AddEvent', { Title : Title, Description : Description, Date : Date, Organizer : Organizer,Location:Location,selected:selected,selectedHour:selectedHour,selectedMinute:selectedMinute, "test" : "HERo" })
+          const Time = `${selectedHour}:${selectedMinute}`;
+            axios.post(BASE_URL + 'event', { Title , Description , Date , Organizer , Location , selected , Time, Link , "test" : "HERo" })
             .then((response) => {
+              console.log(response);
                 if(response?.data?.msg === 'Event already exists'){
                     toast.warn('Event already exists');
                 }
@@ -194,6 +198,19 @@ export default function Addevent()  {
                         <input
                             type="text"
                             onChange={(e) => setOrganizer(e.target.value)}
+                            className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                          
+                            className="block text-sm font-semibold text-gray-800"
+                        >
+                            Event Link
+                        </label>
+                        <input
+                            type="text"
+                            onChange={(e) => SetLink(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
