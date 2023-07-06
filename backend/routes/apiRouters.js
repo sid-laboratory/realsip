@@ -141,11 +141,9 @@ const sampleObj = [
   },
 ];
 
-router.get("/event", (req, res) => {
-  eventModel
-    .find()
-    .then((event) => res.json(event))
-    .catch((err) => res.json(err));
+router.get("/event", async (req, res) => {
+  const data = await eventModel.find({});
+  return res.status(200).json(data);
 });
 
 router.get("/event/:id", (req, res) => {
