@@ -92,7 +92,7 @@ router.post("/event", async (req, res) => {
       Location,
       selected,
       Time,
-      event_link,
+      Link,
     } = req.body;
     console.log("req body", req.body, new Date(outData));
     const newEvent = await eventModel.create({
@@ -103,7 +103,7 @@ router.post("/event", async (req, res) => {
       event: selected,
       event_time: Time,
       event_organiser: Organizer,
-      event_link 
+      event_link : Link,
     });
     console.log("CREATED EVENT", newEvent);
     res.status(200).json(newEvent);
