@@ -120,18 +120,24 @@ router.post("/event", async (req, res) => {
 
 const sampleObj = [
   {
-    description: "This is a sample event",
-    location: "This is a sample location",
-    event_start: "2020-07-20T18:30:00.000Z",
-    event_end: "2020-07-20T18:30:00.000Z",
-    event_organiser: "5f15b0b1e1b9a71b1c4b0b1c",
+    title: "First Test",
+    description: "TESTING",
+    date: "Sun Jul 23 2023",
+    location: "HYDERABAD",
+    event: "NCC",
+    event_time: "1:1",
+    event_organiser: "Shashankh",
+    event_link : "https://www.google.com"
   },
   {
-    description: "This is a sample event",
-    location: "This is a sample location",
-    event_start: "2020-07-20T18:30:00.000Z",
-    event_end: "2020-07-20T18:30:00.000Z",
-    event_organiser: "5f15b0b1e1b9a71b1c4b0b1c",
+    title: "Second Test",
+    description: ":sunglasses:",
+    date: "Sun Jul 23 2023",
+    location: "HYDERABAD",
+    event: "NCC",
+    event_time: "1:12",
+    event_organiser: "Siddarth",
+    event_link : "https://www.google.com"
   },
 ];
 
