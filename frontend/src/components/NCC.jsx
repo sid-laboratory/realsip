@@ -27,7 +27,7 @@ export default function NCC()
     <div className="bg-gradient-to-r from-red-700 via-blue-950 to-cyan-800 text-white">
       <h2 className="text-5xl flex justify-center p-5 underline">Types of NCC Badges:</h2>
       
-      <p className="text-2xl ">NCC badges serve as a symbol of the cadets achievements, skills, and dedication to the NCC program. They also serve as a motivation for other cadets to strive for excellence and achieve their goals in the NCC. Here is a breakdown of the different types of badges awarded by the NCC:</p>
+      <p className="text-2xl ">NCC badges serves as a symbol of the cadets achievements, skills, and dedication to the NCC program. They also serve as a motivation for other cadets to strive for excellence and achieve their goals in the NCC. Here is a breakdown of the different types of badges awarded by the NCC:</p>
 
       <ul>
         <li  className="p-4"><h4  className="text-xl underline ">NCC Proficiency Badges:</h4> These badges are awarded for proficiency in specific activities such as shooting, drill, map reading, and first aid. Cadets must pass specific tests to demonstrate their proficiency in these areas to be eligible for the badge.</li>

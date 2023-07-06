@@ -11,7 +11,7 @@ export default function FormExample5()  {
     let [rollNumber, setRollNumber] = useState('');
     let [password, setPassword] = useState('');
 
-    const validateForm = async () => {
+    const validateForm = async() => {
         if (firstName === '' || lastName === '' || rollNumber === '' || password === '') {
             toast.error('Please fill all the fields');
 
