@@ -9,6 +9,9 @@
 // event_link : "https://www.google.com/"
 // }
 
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../urls";
 const sampleObj = [
   {
     title: "First Test",
@@ -33,9 +36,25 @@ const sampleObj = [
 ];
 
 export default function ShowEvent() {
+    const [sampleObj, setSampleObj] = useState([])
+    useEffect(() => {
+        try{
+            fetchData()
+        }
+        catch(err)
+        {
+            console.error(err);
+        }
+        async function fetchData() {
+            const data = await axios.get(BASE_URL + "event")
+            setSampleObj(data.data)
+        }
+    }, [])
+
+
   return <>
   <div className="">
-  {sampleObj.map((data) => (
+  {sampleObj.length && sampleObj.map((data) => (
     <>
       <div className=" bg-color-black">
         <div className="border-2 rounded-md height-screen width-[100%] border-white">
