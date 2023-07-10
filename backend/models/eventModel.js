@@ -7,7 +7,8 @@ const event_model = new mongoose.Schema({
    event_organiser: {type: String, required: true, maxLength: 100 },
    event : {type: String, required: true},
    event_time : {type: String, required: true, maxLength: 5 },
-   event_link : {type: String, required: true }
+   event_link : {type: String, required: true },
+   approved : {type: Boolean, default: false}
   });
   const eventModel = mongoose.model('eventModel',event_model);
   module.exports = eventModel;
