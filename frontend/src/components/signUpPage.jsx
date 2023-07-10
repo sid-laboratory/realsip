@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { BASE_URL } from "../urls";
 
 export default function FormExample5()  {
 
@@ -10,6 +11,7 @@ export default function FormExample5()  {
     let [lastName, setLastName] = useState('');
     let [rollNumber, setRollNumber] = useState('');
     let [password, setPassword] = useState('');
+    const [email, SetEmail] = useState('');
 
     const validateForm = async() => {
         if (firstName === '' || lastName === '' || rollNumber === '' || password === '') {
@@ -19,6 +21,9 @@ export default function FormExample5()  {
         else if(firstName.length < 3 || lastName.length < 3){
             toast.error('First Name and Last Name should be atleast 3 characters long');
         }
+        else if(email.length < 5){
+            toast.error('Enter a valid email address');
+        }
         else if(rollNumber.length !== 10){
             toast.error('Roll Number should be atleast 10 characters long');
         }
@@ -26,7 +31,7 @@ export default function FormExample5()  {
             toast.error('Password should be atleast 8 characters long');
         }
         else {
-            axios.post('http://localhost:3000/api/signup', { firstName : firstName, lastName : lastName, rollNumber : rollNumber, password : password, "test" : "HERo" })
+            axios.post(BASE_URL + 'signup', { firstName : firstName, lastName : lastName, rollNumber : rollNumber, password : password, email : email,  "test" : "HERo" })
             .then((response) => {
                 if(response?.data?.msg === 'User already exists'){
                     toast.warn('User already exists');
@@ -109,6 +114,18 @@ export default function FormExample5()  {
                         <input
                             type="text"
                             onChange={(e) => setLastName(e.target.value)}
+                            className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label
+                            className="block text-sm font-semibold text-gray-800"
+                        >
+                            Email
+                        </label>
+                        <input
+                            type="text"
+                            onChange={(e) => SetEmail(e.target.value)}
                             className="block w-full px-4 py-2 mt-2 text-indigo-700 bg-white border rounded-md focus:border-indigo-400 focus:ring-indigo-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>

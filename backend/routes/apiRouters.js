@@ -14,7 +14,8 @@ router.post("/signup", (req, res) => {
       !req.body.firstName ||
       !req.body.lastName ||
       !req.body.rollNumber ||
-      !req.body.password
+      !req.body.password ||
+      !req.body.email
     ) {
       return res.status(400).json({ msg: "Please enter all fields" });
     }
@@ -25,6 +26,7 @@ router.post("/signup", (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         roll_number,
+        email : req.body.email,
         password: req.body.password,
       });
       newUser.save().then((user) => {
@@ -36,6 +38,7 @@ router.post("/signup", (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             roll_number,
+            email : req.body.email,
           },
         });
       });
@@ -47,40 +50,65 @@ router.post("/signup", (req, res) => {
 });
 
 const verifyToken = (req, res, next) => {
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
-
-  if (!token) {
-    return res.status(403).send("A token is required for authentication");
-  }
-  try {
-    const decoded = jwt.verify(token, config.TOKEN_KEY);
-    req.user = decoded;
-  } catch (err) {
-    return res.status(401).send("Invalid Token");
-  }
-  return next();
+    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  
+    try {
+        const token = req.body.token || req.query.token || req.cookies['x-access-token'] || req.headers['x-access-token'];
+  
+        const verified = jwt.verify(token, jwtSecretKey);
+        if(verified){
+           next();
+        }else{
+            // Access Denied
+            return res.status(401).json({
+              message : "EXPIRED_TOKEN"
+            });
+        }
+    } catch (error) {
+        // Access Denied
+        return res.status(401).send(error);
+    }
 };
 
-router.get("/login", (req, res) => {
-  if (!req.body.roll_number || !req.body.password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-  userModel.findOne({ rollNumber: req.body.rollNumber }).then((user) => {
-    if (!user) return res.status(400).json({ msg: "User does not exist" });
-    if (user.password !== req.body.password)
-      return res.status(400).json({ msg: "Invalid Credentials" });
-    return res.json({
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        roll_number: user.rollNumber,
-        secret: "This is real",
-      },
+router.post("/login", async (req, res) => {
+  try {
+    console.log("REQUEST FOR LOGIN", req.body);
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({ msg: "Please enter all fields" });
+    }
+
+    const user = await userModel.findOne({
+      email: req.body.email,
+      password: req.body.password
+    })
+    if(user.length == 0){
+      return res.status(401).json({
+        status : "UNAUTHORIZED",
+        message : "USER NOT FOUND"
+      })
+    }
+    console.log("FOUND USER", user);
+
+    const token = jwt.sign({data: user}, process.env.JWT_SECRET_KEY, {
+      expiresIn: 604800 // 1 week
     });
-  });
-});
+
+    console.log("CREATED TOKEN", token);
+    return res
+      .cookie("x-access-token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ message: "Logged in successfully" });
+
+  }
+  catch (err) {
+    console.error("ERROR IN LOGIN API", err);
+  }
+}
+)
+
 
 router.post("/event", async (req, res) => {
   try {

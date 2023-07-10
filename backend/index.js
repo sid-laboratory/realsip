@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require("cookie-parser");
 
 main().catch(err => console.log(err));
 
@@ -11,8 +12,9 @@ async function main() {
     console.log("Connected to DB");
     //------------------------------------------------------
     const app = express()
-    const port = 3000
+    const port = process.env.PORT || 3000
     var cors = require('cors')
+    
     app.use(express.json());
     app.use(cors()) 
     app.use(bodyParser.urlencoded({ extended: false }));
