@@ -12,8 +12,11 @@ export default function Login() {
             console.log("MAKING REQ");
             axios.post(BASE_URL + 'login', { email , password : password, "test" : "HERo" })
             .then((response) => {
-                console.log("RESPONSE ", response);
-                
+                if(response && response.data && response.data.token){
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                    window.location.href = '/';
+                }
             })
             .catch((error) => {
                 console.log(error);

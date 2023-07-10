@@ -3,7 +3,7 @@ router = express.Router();
 const userModel = require("../models/userModel");
 var jwt = require("jsonwebtoken");
 const eventModel = require("../models/eventModel");
-
+const mongoose = require("mongoose");
 router.get("/", (req, res) => {
   res.send("Hello FROM API");
 });
@@ -88,6 +88,8 @@ router.post("/login", async (req, res) => {
         message : "USER NOT FOUND"
       })
     }
+    const { password, ...rest } = user._doc;
+    // You, Me, Bhake, Priyal, KP/Pranay
     console.log("FOUND USER", user);
 
     const token = jwt.sign({data: user}, process.env.JWT_SECRET_KEY, {
@@ -100,7 +102,7 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
       })
       .status(200)
-      .json({ message: "Logged in successfully" });
+      .json({ message: "Logged in successfully", token, user : rest });
 
   }
   catch (err) {
@@ -169,8 +171,12 @@ const sampleObj = [
   },
 ];
 
-router.get("/event", async (req, res) => {
-  const data = await eventModel.find({});
+router.get("/event/:status", async (req, res) => {
+  let query = {};
+  if (req.params.status == "true") {
+    query = { approved: true };
+  }
+  const data = await eventModel.find(query);
   return res.status(200).json(data);
 });
 
@@ -180,5 +186,42 @@ router.get("/event/:id", (req, res) => {
     .then((event) => res.json(event))
     .catch((err) => res.json(err));
 });
+
+router.delete("/event/:id", async (req, res) => {
+  try{
+    await eventModel.findByIdAndDelete(req.params.id);
+    return res.status(200).json({
+      status : "SUCCESS",
+      message : "EVENT DELETED"
+    })
+  }
+  catch(err){
+    return res.status(500).json({
+      status : "FAILED",
+      message : "SERVER ERROR"
+    })
+  }
+});
+
+router.patch("/event/:id", async (req, res) => {
+  try{
+    const id = new mongoose.Types.ObjectId(req.params.id);
+    console.log("ID", id, "req body", req.body)
+    await eventModel.findOneAndUpdate({_id : id}, { approved : req.body.is_approved })
+    return res.status(200).json({
+      status : "SUCCESS",
+      message : "EVENT UPDATED"
+    })
+  }
+  catch(err){
+    console.log("ERROR IN UPDATE EVENT", err);
+    return res.status(500).json({
+      status : "FAILED",
+      message : "SERVER ERROR"
+    })
+  }
+});
+
+
 
 module.exports = router;
